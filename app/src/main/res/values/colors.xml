@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="dark">#FF000000</color>
+    <color name="light">#FFFFFFFF</color>
+    <color name="background">#FAFAF9</color>
+    <color name="background_elevated">#FFFFFF</color>
+    <color name="text">#111110</color>
+    <color name="text_muted">#84827D</color>
+    <color name="border">#E8E6E2</color>
+    <color name="accent">#C97A2E</color>
+    <color name="chip">#F1EFEC</color>"
+    <color name="outer">#EDEBE7</color>
+</resources>
