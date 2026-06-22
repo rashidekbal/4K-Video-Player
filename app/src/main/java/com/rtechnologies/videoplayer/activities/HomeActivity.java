@@ -1,5 +1,6 @@
 package com.rtechnologies.videoplayer.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -43,6 +44,7 @@ public class HomeActivity extends AppCompatActivity {
         binding.recentBtnInActive.setOnClickListener(v->navHandler.onRecentBtnClick());
         binding.musicBtnInActive.setOnClickListener(v->navHandler.onMusicBtnClick());
         binding.videoBtnInActive.setOnClickListener(v->navHandler.onVideoBtnClick());
+        binding.currentPlayingCard.setOnClickListener(v->startActivity(new Intent(this,MusicPlayerActivity.class)));
     }
 
     private void init(){

@@ -93,214 +93,222 @@
 
         </com.google.android.material.card.MaterialCardView>
 <!--        navigation -->
-        <LinearLayout
+        <ScrollView
             android:id="@+id/navigation_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@id/search_view"
-            android:layout_marginTop="@dimen/dp_12">
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
             <LinearLayout
-                android:id="@+id/recent_btn_group"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/recent_btn_inActive"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="@dimen/dp_24"
-                    app:cardBackgroundColor="@android:color/transparent"
-                    android:visibility="gone">
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:paddingVertical="@dimen/dp_8"
-                        android:paddingHorizontal="@dimen/dp_16">
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:layout_width="@dimen/dp_16"
-                            android:layout_height="@dimen/dp_22"
-                            android:src="@drawable/clock"/>
-                        <com.google.android.material.textview.MaterialTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/recents"
-                            android:textColor="@color/text_muted"
-                            android:textSize="@dimen/sp_17"
-                            android:layout_marginStart="@dimen/dp_7"/>
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/recent_btn_active"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="visible"
-                    app:cardCornerRadius="@dimen/dp_24"
-                    app:cardBackgroundColor="@color/dark">
-
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:paddingVertical="@dimen/dp_8"
-                        android:paddingHorizontal="@dimen/dp_16">
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:layout_width="@dimen/dp_16"
-                            android:layout_height="@dimen/dp_22"
-                            android:src="@drawable/clock_active"/>
-                        <com.google.android.material.textview.MaterialTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/recents"
-                            android:textColor="@color/light"
-                            android:textSize="@dimen/sp_17"
-                            android:layout_marginStart="@dimen/dp_7"/>
-                    </LinearLayout>
-
-
-                </com.google.android.material.card.MaterialCardView>
-
-
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/music_btn_group"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginStart="@dimen/dp_10">
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/music_btn_inActive"
+                android:layout_marginTop="@dimen/dp_12">
+                <LinearLayout
+                    android:id="@+id/recent_btn_group"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="@dimen/dp_24"
-                    app:cardBackgroundColor="@android:color/transparent"
-                    android:visibility="visible">
-                    <LinearLayout
+                    android:orientation="horizontal">
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/recent_btn_inActive"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:paddingVertical="@dimen/dp_8"
-                        android:paddingHorizontal="@dimen/dp_16">
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:layout_width="@dimen/dp_16"
-                            android:layout_height="@dimen/dp_22"
-                            android:src="@drawable/music"/>
-                        <com.google.android.material.textview.MaterialTextView
+                        app:cardCornerRadius="@dimen/dp_24"
+                        app:cardBackgroundColor="@android:color/transparent"
+                        android:visibility="gone">
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/music"
-                            android:textColor="@color/text_muted"
-                            android:textSize="@dimen/sp_17"
-                            android:layout_marginStart="@dimen/dp_7"/>
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/music_btn_active"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:paddingVertical="@dimen/dp_8"
+                            android:paddingHorizontal="@dimen/dp_16">
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="@dimen/dp_16"
+                                android:layout_height="@dimen/dp_22"
+                                android:src="@drawable/clock"/>
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/recents"
+                                android:textColor="@color/text_muted"
+                                android:textSize="@dimen/sp_17"
+                                android:layout_marginStart="@dimen/dp_7"/>
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/recent_btn_active"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible"
+                        app:cardCornerRadius="@dimen/dp_24"
+                        app:cardBackgroundColor="@color/dark">
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:paddingVertical="@dimen/dp_8"
+                            android:paddingHorizontal="@dimen/dp_16">
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="@dimen/dp_16"
+                                android:layout_height="@dimen/dp_22"
+                                android:src="@drawable/clock_active"/>
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/recents"
+                                android:textColor="@color/light"
+                                android:textSize="@dimen/sp_17"
+                                android:layout_marginStart="@dimen/dp_7"/>
+                        </LinearLayout>
+
+
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/music_btn_group"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    app:cardCornerRadius="@dimen/dp_24"
-                    app:cardBackgroundColor="@color/dark">
-
-
-                    <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_marginStart="@dimen/dp_10">
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/music_btn_inActive"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:paddingVertical="@dimen/dp_8"
-                        android:paddingHorizontal="@dimen/dp_16">
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:layout_width="@dimen/dp_16"
-                            android:layout_height="@dimen/dp_22"
-                            android:src="@drawable/music_active"/>
-                        <com.google.android.material.textview.MaterialTextView
+                        app:cardCornerRadius="@dimen/dp_24"
+                        app:cardBackgroundColor="@android:color/transparent"
+                        android:visibility="visible">
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/music"
-                            android:textColor="@color/light"
-                            android:textSize="@dimen/sp_17"
-                            android:layout_marginStart="@dimen/dp_7"/>
-                    </LinearLayout>
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:paddingVertical="@dimen/dp_8"
+                            android:paddingHorizontal="@dimen/dp_16">
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="@dimen/dp_16"
+                                android:layout_height="@dimen/dp_22"
+                                android:src="@drawable/music"/>
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/music"
+                                android:textColor="@color/text_muted"
+                                android:textSize="@dimen/sp_17"
+                                android:layout_marginStart="@dimen/dp_7"/>
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/music_btn_active"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:cardCornerRadius="@dimen/dp_24"
+                        app:cardBackgroundColor="@color/dark">
 
 
-                </com.google.android.material.card.MaterialCardView>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:paddingVertical="@dimen/dp_8"
+                            android:paddingHorizontal="@dimen/dp_16">
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="@dimen/dp_16"
+                                android:layout_height="@dimen/dp_22"
+                                android:src="@drawable/music_active"/>
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/music"
+                                android:textColor="@color/light"
+                                android:textSize="@dimen/sp_17"
+                                android:layout_marginStart="@dimen/dp_7"/>
+                        </LinearLayout>
 
 
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/video_btn_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="@dimen/dp_10">
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/video_btn_inActive"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="@dimen/dp_24"
+                        app:cardBackgroundColor="@android:color/transparent"
+                        android:visibility="visible">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:paddingVertical="@dimen/dp_8"
+                            android:paddingHorizontal="@dimen/dp_16">
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="@dimen/dp_16"
+                                android:layout_height="@dimen/dp_22"
+                                android:src="@drawable/video"/>
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/video"
+                                android:textColor="@color/text_muted"
+                                android:textSize="@dimen/sp_17"
+                                android:layout_marginStart="@dimen/dp_7"/>
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/video_btn_active"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:cardCornerRadius="@dimen/dp_24"
+                        app:cardBackgroundColor="@color/dark">
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:paddingVertical="@dimen/dp_8"
+                            android:paddingHorizontal="@dimen/dp_16">
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="@dimen/dp_16"
+                                android:layout_height="@dimen/dp_22"
+                                android:src="@drawable/video_active"/>
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/video"
+                                android:textColor="@color/light"
+                                android:textSize="@dimen/sp_17"
+                                android:layout_marginStart="@dimen/dp_7"/>
+                        </LinearLayout>
+
+
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                </LinearLayout>
             </LinearLayout>
-            <LinearLayout
-                android:id="@+id/video_btn_group"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginStart="@dimen/dp_10">
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/video_btn_inActive"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="@dimen/dp_24"
-                    app:cardBackgroundColor="@android:color/transparent"
-                    android:visibility="visible">
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:paddingVertical="@dimen/dp_8"
-                        android:paddingHorizontal="@dimen/dp_16">
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:layout_width="@dimen/dp_16"
-                            android:layout_height="@dimen/dp_22"
-                            android:src="@drawable/video"/>
-                        <com.google.android.material.textview.MaterialTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/video"
-                            android:textColor="@color/text_muted"
-                            android:textSize="@dimen/sp_17"
-                            android:layout_marginStart="@dimen/dp_7"/>
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/video_btn_active"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    app:cardCornerRadius="@dimen/dp_24"
-                    app:cardBackgroundColor="@color/dark">
-
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:paddingVertical="@dimen/dp_8"
-                        android:paddingHorizontal="@dimen/dp_16">
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:layout_width="@dimen/dp_16"
-                            android:layout_height="@dimen/dp_22"
-                            android:src="@drawable/video_active"/>
-                        <com.google.android.material.textview.MaterialTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/video"
-                            android:textColor="@color/light"
-                            android:textSize="@dimen/sp_17"
-                            android:layout_marginStart="@dimen/dp_7"/>
-                    </LinearLayout>
-
-
-                </com.google.android.material.card.MaterialCardView>
-
-
-            </LinearLayout>
-        </LinearLayout>
+        </ScrollView>
 <!--        main body-->
         <FrameLayout
             android:id="@+id/content_fragment"
@@ -310,7 +318,7 @@
             app:layout_constraintBottom_toTopOf="@id/player_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="@dimen/dp_12"
             />
 
 <!--        footer -->
@@ -322,8 +330,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:cardCornerRadius="@dimen/dp_20"
-            app:cardBackgroundColor="@android:color/transparent">
+            app:strokeWidth="0dp"
+            app:cardBackgroundColor="@color/background_elevated"
+            android:visibility="visible">
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/current_playing_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingVertical="@dimen/dp_12"

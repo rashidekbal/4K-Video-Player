@@ -3,9 +3,7 @@ package com.rtechnologies.videoplayer.utils;
 import android.view.View;
 
 import androidx.activity.OnBackPressedCallback;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-
 import com.rtechnologies.videoplayer.activities.HomeActivity;
 import com.rtechnologies.videoplayer.constants.FragmentsId;
 import com.rtechnologies.videoplayer.databinding.ActivityHomeBinding;
@@ -113,7 +111,6 @@ public class HomePageNavHandler {
                if(entryId.equals(FragmentsId.VIDEO.toString())){
                    currentFragmentTag=FragmentsId.VIDEO.toString();
                    onVideoBtnClick();
-                   return;
                }
            }
         }

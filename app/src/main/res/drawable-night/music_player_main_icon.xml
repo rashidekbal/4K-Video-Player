@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:width="@dimen/dp_200"
+        android:height="@dimen/dp_200">
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="radial"
+                android:centerX="0.3"
+                android:centerY="0.2"
+                android:gradientRadius="300dp"
+                android:startColor="#12FF6200"
+                android:endColor="#00F1EFEC"/>
+            <corners android:radius="@dimen/dp_40"/>
+        </shape>
+    </item>
+    <item android:gravity="center"  android:width="@dimen/dp_50"  android:height="@dimen/dp_50" android:drawable="@drawable/music"/>
+</layer-list>

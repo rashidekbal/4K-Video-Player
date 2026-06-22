@@ -8,6 +8,7 @@
     <color name="text_muted">#84827D</color>
     <color name="border">#E8E6E2</color>
     <color name="accent">#C97A2E</color>
+    <color name="accent_13">#13C97A2E</color>
     <color name="chip">#F1EFEC</color>"
     <color name="outer">#EDEBE7</color>
 </resources>
