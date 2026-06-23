@@ -32,10 +32,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".services.MusicPlayerFgService"
-            android:exported="false"
+        <service
+            android:name=".services.MusicPlayerService"
             android:foregroundServiceType="mediaPlayback"
-            android:enabled="true"/>
+            android:exported="true">
+            <intent-filter>
+                <action android:name="androidx.media3.session.MediaSessionService"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

@@ -20,7 +20,7 @@ public class MediaProvider {
             MediaStore.Files.FileColumns.DISPLAY_NAME,
             MediaStore.Files.FileColumns.DATE_ADDED,
             MediaStore.Files.FileColumns.MEDIA_TYPE,
-            MediaStore.Files.FileColumns.DURATION
+            MediaStore.MediaColumns.DURATION
     };
 
     public MediaProvider(Context context) {

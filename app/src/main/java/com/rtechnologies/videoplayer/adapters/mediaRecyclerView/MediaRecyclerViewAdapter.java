@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rtechnologies.videoplayer.R;
+import com.rtechnologies.videoplayer.interfaces.MediaAdapter.OnItemSelected;
 import com.rtechnologies.videoplayer.model.MediaModel;
 
 import java.util.ArrayList;
@@ -17,12 +18,14 @@ import java.util.ArrayList;
 public class MediaRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     ArrayList<MediaModel> mediaList;
     Context context;
+    OnItemSelected onItemSelected;
     private final int MEDIA_VIDEO=0;
     private final int MEDIA_AUDIO=1;
 
-    public MediaRecyclerViewAdapter(ArrayList<MediaModel> mediaList, Context context) {
+    public MediaRecyclerViewAdapter(ArrayList<MediaModel> mediaList, Context context, OnItemSelected onItemSelected) {
         this.mediaList = mediaList;
         this.context = context;
+        this.onItemSelected=onItemSelected;
     }
 
     @Override
@@ -59,10 +62,10 @@ public class MediaRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof VideoItemViewHolder) {
-            VideoItemViewHolder.bind(context,(VideoItemViewHolder) holder,mediaList.get(position));
+            VideoItemViewHolder.bind(context,(VideoItemViewHolder) holder,mediaList.get(position),onItemSelected);
             return;
         }
-        MusicItemViewHolder.bind(context,(MusicItemViewHolder) holder,mediaList.get(position));
+        MusicItemViewHolder.bind(context,(MusicItemViewHolder) holder,mediaList.get(position),onItemSelected);
 
     }
 

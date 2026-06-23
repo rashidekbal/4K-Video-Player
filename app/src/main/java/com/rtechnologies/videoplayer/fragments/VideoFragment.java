@@ -54,7 +54,7 @@ public class VideoFragment extends Fragment {
     private void init() {
         this.viewModel= new ViewModelProvider(requireActivity()).get(VideoViewModel.class);
         this.mediaList=new ArrayList<>();
-        adapter=new MediaRecyclerViewAdapter(mediaList,requireActivity());
+        adapter=new MediaRecyclerViewAdapter(mediaList,requireActivity(),this::handleMediaItemClicked);
     }
     private void observeMedia() {
         viewModel.getVideos().observe(requireActivity(),media->{
@@ -72,5 +72,8 @@ public class VideoFragment extends Fragment {
         LinearLayoutManager lm=new LinearLayoutManager(requireActivity(),LinearLayoutManager.VERTICAL,false);
         binding.recyclerView.setLayoutManager(lm);
         binding.recyclerView.setAdapter(adapter);
+    }
+    private void handleMediaItemClicked(int position){
+
     }
 }

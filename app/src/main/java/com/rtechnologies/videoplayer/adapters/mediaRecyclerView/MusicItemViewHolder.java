@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textview.MaterialTextView;
 import com.rtechnologies.videoplayer.R;
+import com.rtechnologies.videoplayer.interfaces.MediaAdapter.OnItemSelected;
 import com.rtechnologies.videoplayer.model.MediaModel;
 import com.rtechnologies.videoplayer.utils.TextFormatUtil;
 
@@ -21,10 +22,11 @@ public class MusicItemViewHolder extends RecyclerView.ViewHolder {
         duration=itemView.findViewById(R.id.duration);
 
     }
-    public static void bind(Context context,MusicItemViewHolder viewHolder,MediaModel media){
+    public static void bind(Context context, MusicItemViewHolder viewHolder, MediaModel media, OnItemSelected callback){
+        int position=viewHolder.getLayoutPosition();
         viewHolder.name.setText(media.getFileName());
         viewHolder.duration.setText(TextFormatUtil.getDurationFormatted(media.getDuration()));
-        viewHolder.itemView.setOnClickListener(v-> Toast.makeText(context,"clicked type : "+media.isVideo(),Toast.LENGTH_SHORT).show());
+        viewHolder.itemView.setOnClickListener(v-> callback.onItemSelected(position));
 
     }
 }
