@@ -96,28 +96,161 @@
                 android:layout_marginTop="@dimen/dp_12"/>
 
         </LinearLayout>
-        <LinearLayout
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/wave_layout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_120"
+            android:layout_width="0dp"
+            android:layout_height="135dp"
+            android:layout_marginBottom="10dp"
             app:layout_constraintBottom_toTopOf="@id/controls_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:background="@color/accent"
-            android:layout_marginBottom="10dp"
-            >
+            android:padding="@dimen/dp_20">
 
-        </LinearLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/controls_layout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_80"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:background="@color/accent">
+            <androidx.appcompat.widget.AppCompatSeekBar
+                android:id="@+id/progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="100"
+                android:progress="50"
+                android:progressBackgroundTint="@color/accent"
+                android:progressTint="@color/accent"
+                android:thumbTint="@color/accent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                >
+
+            </androidx.appcompat.widget.AppCompatSeekBar>
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/current_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="8:0"
+                android:textColor="@color/text_muted"
+                app:layout_constraintStart_toStartOf="@id/progress_bar"
+                app:layout_constraintTop_toBottomOf="@id/progress_bar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="@dimen/dp_12"
+                />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/max_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="16:8"
+                android:textColor="@color/text_muted"
+                app:layout_constraintEnd_toEndOf="@id/progress_bar"
+                app:layout_constraintTop_toBottomOf="@id/progress_bar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginEnd="@dimen/dp_12"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/controls_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/queue_btn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@android:color/transparent"
+            android:layout_marginBottom="@dimen/dp_70"
+            >
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/play_btn"
+                android:layout_width="@dimen/dp_75"
+                android:layout_height="@dimen/dp_75"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@drawable/play_icon"
+
+                />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/forward_btn"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="@dimen/dp_40"
+                android:background="@drawable/angle_double"
+                app:layout_constraintStart_toEndOf="@id/play_btn"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="@dimen/dp_20"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/backward_btn"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="@dimen/dp_40"
+                android:background="@drawable/angle_double"
+                android:rotation="180"
+                app:layout_constraintEnd_toStartOf="@id/play_btn"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginEnd="@dimen/dp_20"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/prev_btn"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:background="@drawable/prev"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/backward_btn"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/next_btn"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
+                android:layout_marginStart="@dimen/dp_20"
+                android:background="@drawable/prev"
+                android:rotation="180"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/forward_btn"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="TouchTargetSizeCheck" />
+
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/queue_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/chip"
+            app:strokeWidth="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:cardCornerRadius="@dimen/dp_8"
+            android:elevation="1dp"
+            android:layout_marginBottom="@dimen/dp_10"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:paddingVertical="@dimen/dp_14"
+                >
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/dp_17"
+                    android:layout_height="@dimen/dp_17"
+                    android:src="@drawable/music_filter"
+                    android:layout_marginHorizontal="@dimen/dp_8"/>
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="View queue"
+                    android:textColor="@color/text_muted"
+                    android:textSize="@dimen/sp_16"/>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

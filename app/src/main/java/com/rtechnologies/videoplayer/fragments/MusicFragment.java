@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.rtechnologies.videoplayer.adapters.mediaRecyclerView.MediaRecyclerViewAdapter;
 import com.rtechnologies.videoplayer.databinding.FragmentMusicBinding;
 import com.rtechnologies.videoplayer.model.MediaModel;
+import com.rtechnologies.videoplayer.utils.PermissionUtil;
 import com.rtechnologies.videoplayer.viewmodels.MusicViewModel;
 
 import java.util.ArrayList;
@@ -40,8 +41,14 @@ public class MusicFragment extends Fragment {
         binding=FragmentMusicBinding.inflate(inflater,container,false);
         init();
         setupRecyclerView();
-        observeMedia();
+        handleMediaLoad();
         return binding.getRoot();
+    }
+    private void handleMediaLoad() {
+        if(!PermissionUtil.hasPermissions(requireActivity(),PermissionUtil.MediaPermissions)){
+            return ;
+        }
+        observeMedia();
     }
     private void init() {
         this.viewModel= new ViewModelProvider(requireActivity()).get(MusicViewModel.class);

@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.rtechnologies.videoplayer.adapters.mediaRecyclerView.MediaRecyclerViewAdapter;
 import com.rtechnologies.videoplayer.databinding.FragmentVideoBinding;
 import com.rtechnologies.videoplayer.model.MediaModel;
+import com.rtechnologies.videoplayer.utils.PermissionUtil;
 import com.rtechnologies.videoplayer.viewmodels.VideoViewModel;
 
 import java.util.ArrayList;
@@ -38,10 +39,18 @@ public class VideoFragment extends Fragment {
         this.binding=FragmentVideoBinding.inflate(inflater,container,false);
         init();
         setupRecyclerView();
-        observeMedia();
+        handleMediaLoad();
         return binding.getRoot();
 
     }
+
+    private void handleMediaLoad() {
+        if(!PermissionUtil.hasPermissions(requireActivity(),PermissionUtil.MediaPermissions)){
+            return ;
+        }
+        observeMedia();
+    }
+
     private void init() {
         this.viewModel= new ViewModelProvider(requireActivity()).get(VideoViewModel.class);
         this.mediaList=new ArrayList<>();

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<com.google.android.material.card.MaterialCardView xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:hint="http://schemas.android.com/tools"
     app:cardBackgroundColor="@android:color/transparent"
     app:strokeWidth="0dp"
     android:layout_marginBottom="@dimen/dp_5">
@@ -34,36 +34,41 @@
 
         </com.google.android.material.card.MaterialCardView>
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintStart_toEndOf="@id/media_icon_view"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/duration"
             android:layout_marginStart="@dimen/dp_15"
+            android:layout_marginEnd="@dimen/dp_10"
             >
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Midnight drive"
+                hint:text="Midnight drive"
                 android:textStyle="bold"
                 android:textColor="@color/text"
+                android:maxLines="2"
                 android:textSize="@dimen/sp_14"/>
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/sub"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="solace"
+                hint:text="solace"
                 android:textStyle="bold"
-                android:textColor="@color/text_muted"/>
+                android:maxLines="1"
+                android:textColor="@color/text_muted"
+                android:visibility="gone"/>
         </LinearLayout>
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/duration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/sp_12"
-            android:text="16:55"
+            hint:text="16:55"
             android:textColor="@color/text_muted"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

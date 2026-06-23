@@ -1,0 +1,9 @@
+make media model
+handle show media
+create music player view
+handle music playing
+add waveform
+create video player view
+handle video playing 
+polish
+add play via url in options via 3 dots on home top

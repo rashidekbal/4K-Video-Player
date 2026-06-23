@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentManager;
 import com.rtechnologies.videoplayer.R;
 import com.rtechnologies.videoplayer.databinding.ActivityHomeBinding;
 import com.rtechnologies.videoplayer.utils.HomePageNavHandler;
+import com.rtechnologies.videoplayer.utils.PermissionUtil;
 
 import org.jspecify.annotations.Nullable;
 
@@ -35,9 +36,16 @@ public class HomeActivity extends AppCompatActivity {
 
         });
         init();
+        handlePermission();
         setEventHandler();
 
 
+    }
+
+    private void handlePermission() {
+        if(!PermissionUtil.hasPermissions(this,PermissionUtil.MediaPermissions)){
+            PermissionUtil.requestPermissions(this,PermissionUtil.MediaPermissions,PermissionUtil.MEDIA_PERMISSION_CODE);
+        }
     }
 
     private void setEventHandler() {
@@ -55,4 +63,5 @@ public class HomeActivity extends AppCompatActivity {
         fragmentManager.beginTransaction().replace(binding.contentFragment.getId(),fragment).addToBackStack(tag).commit();
 
     }
+
 }
