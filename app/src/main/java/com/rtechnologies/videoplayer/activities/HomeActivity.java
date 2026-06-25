@@ -6,6 +6,7 @@ import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -101,10 +102,10 @@ public class HomeActivity extends AppCompatActivity {
         if(isPlaying==null){binding.miniPlayer.setVisibility(View.GONE);return;}
         binding.miniPlayer.setVisibility(View.VISIBLE);
         if(isPlaying){
-            binding.playPauseBtn.setBackgroundDrawable(getDrawable(R.drawable.pause_icon));
+            binding.playPauseBtn.setBackgroundDrawable(AppCompatResources.getDrawable(this,R.drawable.pause_icon));
             return;
         }
-        binding.playPauseBtn.setBackgroundDrawable(getDrawable(R.drawable.play_icon));
+        binding.playPauseBtn.setBackgroundDrawable(AppCompatResources.getDrawable(this,R.drawable.play_icon));
 
 
     }

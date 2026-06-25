@@ -1,5 +1,4 @@
 package com.rtechnologies.videoplayer.utils;
-
 public class TextFormatUtil {
     public static String getDurationFormatted(long duration) {
         long sec= duration/1000;

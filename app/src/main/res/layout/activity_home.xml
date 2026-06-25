@@ -333,12 +333,12 @@
             app:cardCornerRadius="@dimen/dp_20"
             app:strokeWidth="0dp"
             app:cardBackgroundColor="@color/chip"
-            android:visibility="visible">
+            android:visibility="gone">
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/current_playing_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingVertical="@dimen/dp_12"
+                android:paddingVertical="@dimen/dp_14"
                 android:paddingHorizontal="@dimen/dp_16">
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/music_icon_view"

@@ -1,6 +1,3 @@
-make media model
-handle show media
-create music player view
 handle music playing
 add waveform
 create video player view
