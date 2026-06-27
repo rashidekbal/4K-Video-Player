@@ -2,8 +2,6 @@ package com.rtechnologies.videoplayer.model;
 
 import android.net.Uri;
 
-import java.net.URI;
-
 public class MediaModel {
     private final long id;
     private String fileName;
