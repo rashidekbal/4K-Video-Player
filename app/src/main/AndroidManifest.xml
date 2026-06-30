@@ -21,13 +21,16 @@
         android:theme="@style/Theme._4KVideoPlayer">
         <activity
             android:name=".activities.VideoPlayerActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="locked"
+            />
         <activity
             android:name=".activities.MusicPlayerActivity"
             android:exported="false" />
         <activity
             android:name=".activities.HomeActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

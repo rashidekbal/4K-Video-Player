@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="allDark">#FF000000</color>
+    <color name="allLight">#FFFFFF</color>
     <color name="dark">#FF000000</color>
     <color name="light">#FFFFFFFF</color>
     <color name="background">#FAFAF9</color>
