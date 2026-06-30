@@ -6,4 +6,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="no_recently_played_media">No recently played media</string>
+    <string name="lock_player">lock player</string>
+    <string name="next_media">next media</string>
+    <string name="play_pause_btn">play pause btn</string>
+    <string name="back_button">back button</string>
+    <string name="prev_media_btn">prev media btn</string>
 </resources>
