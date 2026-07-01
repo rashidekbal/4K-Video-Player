@@ -37,7 +37,7 @@ public class MediaRepo {
     public MediaRepo(Context context) {
         this.context = context;
         collection = MediaStore.Files.getContentUri("external");
-        this.executorService= Executors.newSingleThreadExecutor();
+        this.executorService = Executors.newSingleThreadExecutor();
     }
 
     public void getMusic(GetMedia<ArrayList<MediaModel>> mediaCallback) {
@@ -48,6 +48,7 @@ public class MediaRepo {
 
 
     }
+
     public void getVideo(GetMedia<ArrayList<MediaModel>> mediaCallback) {
         executorService.execute(() -> {
             ArrayList<MediaModel> temp = getVideos(getMediaFilter("video"));
@@ -68,41 +69,42 @@ public class MediaRepo {
         Cursor cursor = context.getContentResolver().query(collection, audioProjection, filter, null, SortOrder);
         if (cursor != null) {
             int idColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.AudioColumns._ID);
-            int fileNameColumn =cursor.getColumnIndexOrThrow(MediaStore.Audio.AudioColumns.DISPLAY_NAME);
-            int durationColumn=cursor.getColumnIndexOrThrow(MediaStore.Audio.AudioColumns.DURATION);
-            int dateColumn=cursor.getColumnIndexOrThrow(MediaStore.Audio.AudioColumns.DATE_ADDED);
-            int albumColumn=cursor.getColumnIndexOrThrow(MediaStore.Audio.AudioColumns.ALBUM);
-            int artistColumn=cursor.getColumnIndexOrThrow(MediaStore.Audio.AudioColumns.ARTIST);
+            int fileNameColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.AudioColumns.DISPLAY_NAME);
+            int durationColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.AudioColumns.DURATION);
+            int dateColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.AudioColumns.DATE_ADDED);
+            int albumColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.AudioColumns.ALBUM);
+            int artistColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.AudioColumns.ARTIST);
             while (cursor.moveToNext()) {
                 long id = cursor.getLong(idColumn);
-                String name=cursor.getString(fileNameColumn);
-                long dateAdded=cursor.getLong(dateColumn);
-                String album=cursor.getString(albumColumn);
-                String artist=cursor.getString(artistColumn);
-                long duration= cursor.getLong(durationColumn);
+                String name = cursor.getString(fileNameColumn);
+                long dateAdded = cursor.getLong(dateColumn);
+                String album = cursor.getString(albumColumn);
+                String artist = cursor.getString(artistColumn);
+                long duration = cursor.getLong(durationColumn);
                 Uri uri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id);
-                temp.add(new MediaModel(id,name,false,uri.toString(),duration,album,artist,dateAdded,new Date().getTime(),0));
+                temp.add(new MediaModel(id, name, false, uri.toString(), duration, album, artist, dateAdded, new Date().getTime(), 0));
             }
             cursor.close();
 
         }
         return temp;
     }
-    private ArrayList<MediaModel> getVideos(String filter){
+
+    private ArrayList<MediaModel> getVideos(String filter) {
         ArrayList<MediaModel> temp = new ArrayList<>();
-        Cursor cursor = context.getContentResolver().query(collection,videoProjection,filter, null, SortOrder);
-        if(cursor!=null){
-            int idColumn=cursor.getColumnIndexOrThrow(MediaStore.Video.VideoColumns._ID);
-            int nameColumn=cursor.getColumnIndexOrThrow(MediaStore.Video.VideoColumns.DISPLAY_NAME);
-            int dateColumn=cursor.getColumnIndexOrThrow(MediaStore.Video.VideoColumns.DATE_ADDED);
-            int durationColumn=cursor.getColumnIndexOrThrow(MediaStore.Video.VideoColumns.DURATION);
-            while (cursor.moveToNext()){
-                long id=cursor.getLong(idColumn);
-                String name=cursor.getString(nameColumn);
-                long dateAdded=cursor.getLong(dateColumn);
-                long duration=cursor.getLong(durationColumn);
-                Uri uri=ContentUris.withAppendedId(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,id);
-                temp.add(new MediaModel(id,name,false,uri.toString(),duration,null,null,dateAdded,new Date().getTime(),0));
+        Cursor cursor = context.getContentResolver().query(collection, videoProjection, filter, null, SortOrder);
+        if (cursor != null) {
+            int idColumn = cursor.getColumnIndexOrThrow(MediaStore.Video.VideoColumns._ID);
+            int nameColumn = cursor.getColumnIndexOrThrow(MediaStore.Video.VideoColumns.DISPLAY_NAME);
+            int dateColumn = cursor.getColumnIndexOrThrow(MediaStore.Video.VideoColumns.DATE_ADDED);
+            int durationColumn = cursor.getColumnIndexOrThrow(MediaStore.Video.VideoColumns.DURATION);
+            while (cursor.moveToNext()) {
+                long id = cursor.getLong(idColumn);
+                String name = cursor.getString(nameColumn);
+                long dateAdded = cursor.getLong(dateColumn);
+                long duration = cursor.getLong(durationColumn);
+                Uri uri = ContentUris.withAppendedId(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, id);
+                temp.add(new MediaModel(id, name, false, uri.toString(), duration, null, null, dateAdded, new Date().getTime(), 0));
             }
 
             cursor.close();

@@ -38,11 +38,10 @@ public class VideoFragment extends Fragment {
     }
 
 
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        this.binding=FragmentVideoBinding.inflate(inflater,container,false);
+        this.binding = FragmentVideoBinding.inflate(inflater, container, false);
         init();
         setupRecyclerView();
         handleMediaLoad();
@@ -51,21 +50,22 @@ public class VideoFragment extends Fragment {
     }
 
     private void handleMediaLoad() {
-        if(!PermissionUtil.hasPermissions(requireActivity(),PermissionUtil.MediaPermissions)){
-            return ;
+        if (!PermissionUtil.hasPermissions(requireActivity(), PermissionUtil.MediaPermissions)) {
+            return;
         }
         observeMedia();
     }
 
     private void init() {
-        this.viewModel= new ViewModelProvider(requireActivity()).get(VideoViewModel.class);
-        this.mediaList=new ArrayList<>();
-        adapter=new MediaRecyclerViewAdapter(mediaList,requireActivity(),this::handleMediaItemClicked);
+        this.viewModel = new ViewModelProvider(requireActivity()).get(VideoViewModel.class);
+        this.mediaList = new ArrayList<>();
+        adapter = new MediaRecyclerViewAdapter(mediaList, requireActivity(), this::handleMediaItemClicked);
     }
+
     @SuppressLint("NotifyDataSetChanged")
     private void observeMedia() {
-        viewModel.getVideos().observe(requireActivity(),media->{
-            if(!media.isEmpty()){
+        viewModel.getVideos().observe(requireActivity(), media -> {
+            if (!media.isEmpty()) {
                 binding.recyclerView.setVisibility(View.VISIBLE);
                 binding.noRecentlyPlayedMedia.setVisibility(View.GONE);
                 mediaList.clear();
@@ -75,15 +75,17 @@ public class VideoFragment extends Fragment {
         });
 
     }
-    private void setupRecyclerView(){
-        LinearLayoutManager lm=new LinearLayoutManager(requireActivity(),LinearLayoutManager.VERTICAL,false);
+
+    private void setupRecyclerView() {
+        LinearLayoutManager lm = new LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false);
         binding.recyclerView.setLayoutManager(lm);
         binding.recyclerView.setAdapter(adapter);
     }
-    private void handleMediaItemClicked(int position){
-        List<MediaItem> mediaItems= ExoplayerUtil.prepareMediaItem(requireActivity(),mediaList);
-        long startPosition=0;
-        ExoplayerUtil.setMediaList(mediaItems,position,startPosition);
+
+    private void handleMediaItemClicked(int position) {
+        List<MediaItem> mediaItems = ExoplayerUtil.prepareMediaItem(requireActivity(), mediaList);
+        long startPosition = 0;
+        ExoplayerUtil.setMediaList(mediaItems, position, startPosition);
         startActivity(new Intent(requireActivity(), VideoPlayerActivity.class));
 
     }

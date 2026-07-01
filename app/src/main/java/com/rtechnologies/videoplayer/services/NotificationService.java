@@ -8,7 +8,8 @@ public class NotificationService {
     public static NotificationManager getNotificationManager(Context context) {
         return (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
     }
-    public static void createNotificationChannel(NotificationManager nm,String channelId, String channelName, int importance){
+
+    public static void createNotificationChannel(NotificationManager nm, String channelId, String channelName, int importance) {
         NotificationChannel channel = new NotificationChannel(channelId, channelName, importance);
         channel.setSound(null, null);
         channel.setLockscreenVisibility(android.app.Notification.VISIBILITY_PUBLIC);

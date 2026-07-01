@@ -31,7 +31,7 @@ public class MusicPlayerActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        this.binding=ActivityMusicPlayerBinding.inflate(getLayoutInflater());
+        this.binding = ActivityMusicPlayerBinding.inflate(getLayoutInflater());
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(binding.getRoot());
@@ -44,9 +44,10 @@ public class MusicPlayerActivity extends AppCompatActivity {
         observeMusicSession();
         handleEvents();
     }
-    private void init(){
-        handler=new Handler(Looper.getMainLooper());
-        this.viewmodel=new ViewModelProvider(this).get(MusicSessionViewModel.class);
+
+    private void init() {
+        handler = new Handler(Looper.getMainLooper());
+        this.viewmodel = new ViewModelProvider(this).get(MusicSessionViewModel.class);
         this.viewmodel.connect(this);
     }
 
@@ -60,10 +61,10 @@ public class MusicPlayerActivity extends AppCompatActivity {
         binding.progressBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if(viewmodel.getController()==null)return;
-                MediaController controller=viewmodel.getController();
-                if(!fromUser)return;
-                long progressChange=(long)progress*controller.getDuration()/seekBar.getMax();
+                if (viewmodel.getController() == null) return;
+                MediaController controller = viewmodel.getController();
+                if (!fromUser) return;
+                long progressChange = (long) progress * controller.getDuration() / seekBar.getMax();
                 controller.seekTo(progressChange);
                 binding.currentProgress.setText(TextFormatUtil.getDurationFormatted(progressChange));
 
@@ -91,40 +92,40 @@ public class MusicPlayerActivity extends AppCompatActivity {
     }
 
     private void handlePrevMediaBtnClicked(View view) {
-        if(viewmodel.getController()==null)return;
+        if (viewmodel.getController() == null) return;
 
-        MediaController controller=viewmodel.getController();
+        MediaController controller = viewmodel.getController();
         controller.seekToPreviousMediaItem();
     }
 
     private void handleNextMediaBtnClicked(View view) {
-        if(viewmodel.getController()==null)return;
+        if (viewmodel.getController() == null) return;
 
-        MediaController controller=viewmodel.getController();
+        MediaController controller = viewmodel.getController();
         controller.seekToNextMediaItem();
     }
 
     private void handleSeekBackward(View view) {
-        if(viewmodel.getController()==null)return;
-        MediaController controller=viewmodel.getController();
+        if (viewmodel.getController() == null) return;
+        MediaController controller = viewmodel.getController();
         controller.seekBack();
-        binding.progressBar.setProgress((int)controller.getCurrentPosition());
+        binding.progressBar.setProgress((int) controller.getCurrentPosition());
         binding.currentProgress.setText(TextFormatUtil.getDurationFormatted(controller.getCurrentPosition()));
     }
 
     private void handleSeekForward(View view) {
-        if(viewmodel.getController()==null)return;
-        MediaController controller=viewmodel.getController();
+        if (viewmodel.getController() == null) return;
+        MediaController controller = viewmodel.getController();
         controller.seekForward();
-        binding.progressBar.setProgress((int)controller.getCurrentPosition());
+        binding.progressBar.setProgress((int) controller.getCurrentPosition());
         binding.currentProgress.setText(TextFormatUtil.getDurationFormatted(controller.getCurrentPosition()));
     }
 
     private void handlePlayPause(View view) {
         view.playSoundEffect(SoundEffectConstants.CLICK);
-        if(viewmodel.getController()==null)return;
-        MediaController controller=viewmodel.getController();
-        if(controller.isPlaying()){
+        if (viewmodel.getController() == null) return;
+        MediaController controller = viewmodel.getController();
+        if (controller.isPlaying()) {
             stopProgressListener();
             controller.pause();
             return;
@@ -135,27 +136,26 @@ public class MusicPlayerActivity extends AppCompatActivity {
     }
 
 
-    private void observeMusicSession(){
-        this.viewmodel.getCurrentMediaItem().observe(this,this::handleMediaItemChange);
-        this.viewmodel.isPlaying().observe(this,this::handleIsPlaying);
+    private void observeMusicSession() {
+        this.viewmodel.getCurrentMediaItem().observe(this, this::handleMediaItemChange);
+        this.viewmodel.isPlaying().observe(this, this::handleIsPlaying);
 
     }
 
     private void handleIsPlaying(Boolean isPlaying) {
-        if(isPlaying==null)return;
-        if(isPlaying){
-            binding.playPauseBtn.setBackgroundDrawable(AppCompatResources.getDrawable(this,R.drawable.pause_icon));
+        if (isPlaying == null) return;
+        if (isPlaying) {
+            binding.playPauseBtn.setBackgroundDrawable(AppCompatResources.getDrawable(this, R.drawable.pause_icon));
 
             return;
         }
-            binding.playPauseBtn.setBackgroundDrawable(AppCompatResources.getDrawable(this,R.drawable.play_icon));
-
+        binding.playPauseBtn.setBackgroundDrawable(AppCompatResources.getDrawable(this, R.drawable.play_icon));
 
 
     }
 
     private void handleMediaItemChange(MediaItem mediaItem) {
-        if(mediaItem==null)return;
+        if (mediaItem == null) return;
         binding.progressBar.setProgress(0);
         binding.currentProgress.setText("0:00");
         binding.fileName.setText(mediaItem.mediaMetadata.title);
@@ -163,23 +163,23 @@ public class MusicPlayerActivity extends AppCompatActivity {
         this.handleProgressListener();
 
 
-
-
     }
-    private void handleProgressListener(){
-        progressRunnable=()->{
-            if(viewmodel.getController()==null)return;
-            MediaController controller=viewmodel.getController();
-            if(controller.getDuration()>=0){
-                binding.progressBar.setMax((int)controller.getDuration());
+
+    private void handleProgressListener() {
+        progressRunnable = () -> {
+            if (viewmodel.getController() == null) return;
+            MediaController controller = viewmodel.getController();
+            if (controller.getDuration() >= 0) {
+                binding.progressBar.setMax((int) controller.getDuration());
                 binding.maxProgress.setText(TextFormatUtil.getDurationFormatted(controller.getDuration()));
-                binding.progressBar.setProgress((int)controller.getCurrentPosition());
+                binding.progressBar.setProgress((int) controller.getCurrentPosition());
                 binding.currentProgress.setText(TextFormatUtil.getDurationFormatted(controller.getCurrentPosition()));
             }
-            handler.postDelayed(progressRunnable,50);
+            handler.postDelayed(progressRunnable, 50);
         };
         handler.post(progressRunnable);
     }
+
     private void stopProgressListener() {
         if (progressRunnable != null) {
             handler.removeCallbacks(progressRunnable);

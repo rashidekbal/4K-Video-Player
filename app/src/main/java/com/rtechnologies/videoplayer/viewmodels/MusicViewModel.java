@@ -16,15 +16,17 @@ import java.util.ArrayList;
 public class MusicViewModel extends AndroidViewModel {
 
     private final MediaRepo mediaRepo;
+
     public MusicViewModel(@NonNull Application application) {
         super(application);
 
-        this.mediaRepo =new MediaRepo(application);
+        this.mediaRepo = new MediaRepo(application);
     }
-    MutableLiveData<ArrayList<MediaModel>> mutableLiveData =new MutableLiveData<>();
 
-    public LiveData<ArrayList<MediaModel>> getMusic(){
-        if(mutableLiveData.getValue()==null||mutableLiveData.getValue().isEmpty()){
+    MutableLiveData<ArrayList<MediaModel>> mutableLiveData = new MutableLiveData<>();
+
+    public LiveData<ArrayList<MediaModel>> getMusic() {
+        if (mutableLiveData.getValue() == null || mutableLiveData.getValue().isEmpty()) {
             fetchMusic();
         }
         return mutableLiveData;
@@ -32,11 +34,7 @@ public class MusicViewModel extends AndroidViewModel {
     }
 
     private void fetchMusic() {
-        ArrayList<MediaModel> temp=new ArrayList<>();
-        if(mutableLiveData.getValue()!=null)temp.addAll(mutableLiveData.getValue());
-        mediaRepo.getMusic(data->{
-            temp.addAll(data);
-            mutableLiveData.postValue(temp);});
 
+        mediaRepo.getMusic(data -> mutableLiveData.postValue(data));
     }
 }

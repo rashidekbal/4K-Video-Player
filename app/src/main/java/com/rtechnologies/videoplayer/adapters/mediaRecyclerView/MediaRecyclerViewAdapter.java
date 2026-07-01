@@ -19,18 +19,18 @@ public class MediaRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
     ArrayList<MediaModel> mediaList;
     Context context;
     OnItemSelected onItemSelected;
-    private final int MEDIA_VIDEO=0;
-    private final int MEDIA_AUDIO=1;
+    private final int MEDIA_VIDEO = 0;
+    private final int MEDIA_AUDIO = 1;
 
     public MediaRecyclerViewAdapter(ArrayList<MediaModel> mediaList, Context context, OnItemSelected onItemSelected) {
         this.mediaList = mediaList;
         this.context = context;
-        this.onItemSelected=onItemSelected;
+        this.onItemSelected = onItemSelected;
     }
 
     @Override
     public int getItemViewType(int position) {
-        if(mediaList.get(position).isVideo())return MEDIA_VIDEO;
+        if (mediaList.get(position).isVideo()) return MEDIA_VIDEO;
         return MEDIA_AUDIO;
     }
 
@@ -48,24 +48,24 @@ public class MediaRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v;
-        LayoutInflater inflater=LayoutInflater.from(context);
-        if(viewType==MEDIA_VIDEO) {
+        LayoutInflater inflater = LayoutInflater.from(context);
+        if (viewType == MEDIA_VIDEO) {
             v = inflater.inflate(R.layout.video_card, parent, false);
             return new VideoItemViewHolder(v);
 
         }
-        v=inflater.inflate(R.layout.music_card,parent,false);
+        v = inflater.inflate(R.layout.music_card, parent, false);
         return new MusicItemViewHolder(v);
 
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if(holder instanceof VideoItemViewHolder) {
-            VideoItemViewHolder.bind(context,(VideoItemViewHolder) holder,mediaList.get(position),onItemSelected);
+        if (holder instanceof VideoItemViewHolder) {
+            VideoItemViewHolder.bind(context, (VideoItemViewHolder) holder, mediaList.get(position), onItemSelected);
             return;
         }
-        MusicItemViewHolder.bind(context,(MusicItemViewHolder) holder,mediaList.get(position),onItemSelected);
+        MusicItemViewHolder.bind(context, (MusicItemViewHolder) holder, mediaList.get(position), onItemSelected);
 
     }
 

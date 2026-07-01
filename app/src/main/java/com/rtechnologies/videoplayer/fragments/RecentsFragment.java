@@ -26,18 +26,15 @@ public class RecentsFragment extends Fragment {
     ArrayList<MediaModel> mediaList;
 
 
-
     public RecentsFragment() {
         // Required empty public constructor
     }
 
 
-
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding=FragmentRecentsBinding.inflate(inflater,container,false);
+        binding = FragmentRecentsBinding.inflate(inflater, container, false);
         init();
         setupRecyclerView();
         observeMedia();
@@ -46,13 +43,14 @@ public class RecentsFragment extends Fragment {
 
 
     private void init() {
-        this.viewModel= new ViewModelProvider(requireActivity()).get(RecentPlayedViewModel.class);
-        this.mediaList=new ArrayList<>();
-        adapter=new MediaRecyclerViewAdapter(mediaList,requireActivity(),this::handleMediaItemClicked);
+        this.viewModel = new ViewModelProvider(requireActivity()).get(RecentPlayedViewModel.class);
+        this.mediaList = new ArrayList<>();
+        adapter = new MediaRecyclerViewAdapter(mediaList, requireActivity(), this::handleMediaItemClicked);
     }
+
     private void observeMedia() {
-        viewModel.getRecents().observe(requireActivity(),media->{
-            if(!media.isEmpty()){
+        viewModel.getRecents().observe(requireActivity(), media -> {
+            if (!media.isEmpty()) {
                 binding.recyclerView.setVisibility(View.VISIBLE);
                 binding.noRecentlyPlayedMedia.setVisibility(View.GONE);
                 mediaList.clear();
@@ -62,13 +60,14 @@ public class RecentsFragment extends Fragment {
         });
 
     }
-    private void setupRecyclerView(){
-        LinearLayoutManager lm=new LinearLayoutManager(requireActivity(),LinearLayoutManager.VERTICAL,false);
+
+    private void setupRecyclerView() {
+        LinearLayoutManager lm = new LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false);
         binding.recyclerView.setLayoutManager(lm);
         binding.recyclerView.setAdapter(adapter);
     }
 
-    private void handleMediaItemClicked(int position){
+    private void handleMediaItemClicked(int position) {
 
     }
 }

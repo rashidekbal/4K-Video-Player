@@ -8,12 +8,13 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import org.jspecify.annotations.Nullable;
+
 @Entity(tableName = "playHistory")
 public class MediaModel {
     @PrimaryKey(autoGenerate = true)
-    private  long id;
-    @ColumnInfo(name ="mediaId")
-    private  long mediaId;
+    private long id;
+    @ColumnInfo(name = "mediaId")
+    private long mediaId;
     @ColumnInfo(name = "fileName")
     private String fileName;
     @ColumnInfo(name = "isVideo")
@@ -34,31 +35,32 @@ public class MediaModel {
     private long lastPlayedPosition;
 
 
-    public MediaModel(long id,long mediaId ,String fileName, boolean isVideo, String uri, long duration, @Nullable String album, @Nullable String artist, long dateAdded, long lastPlayed,long lastPlayedPosition) {
+    public MediaModel(long id, long mediaId, String fileName, boolean isVideo, String uri, long duration, @Nullable String album, @Nullable String artist, long dateAdded, long lastPlayed, long lastPlayedPosition) {
         this.id = id;
         this.fileName = fileName;
         this.isVideo = isVideo;
         this.uri = uri;
         this.duration = duration;
-        this.album = album==null?"unknown":album;
-        this.artist = artist==null?"unknown":artist;
+        this.album = album == null ? "unknown" : album;
+        this.artist = artist == null ? "unknown" : artist;
         this.dateAdded = dateAdded;
         this.lastPlayed = lastPlayed;
-        this.lastPlayedPosition=lastPlayedPosition;
-        this.mediaId=mediaId;
+        this.lastPlayedPosition = lastPlayedPosition;
+        this.mediaId = mediaId;
     }
+
     @Ignore
-    public MediaModel(long mediaId ,String fileName, boolean isVideo, String uri, long duration, @Nullable String album, @Nullable String artist, long dateAdded, long lastPlayed,long lastPlayedPosition) {
+    public MediaModel(long mediaId, String fileName, boolean isVideo, String uri, long duration, @Nullable String album, @Nullable String artist, long dateAdded, long lastPlayed, long lastPlayedPosition) {
         this.fileName = fileName;
         this.isVideo = isVideo;
         this.uri = uri;
         this.duration = duration;
-        this.album = album==null?"unknown":album;
-        this.artist = artist==null?"unknown":artist;
+        this.album = album == null ? "unknown" : album;
+        this.artist = artist == null ? "unknown" : artist;
         this.dateAdded = dateAdded;
         this.lastPlayed = lastPlayed;
-        this.lastPlayedPosition=lastPlayedPosition;
-        this.mediaId=mediaId;
+        this.lastPlayedPosition = lastPlayedPosition;
+        this.mediaId = mediaId;
     }
 
     public boolean isVideo() {
@@ -118,7 +120,7 @@ public class MediaModel {
     }
 
     public void setArtist(@Nullable String artist) {
-        this.artist=artist==null?"unknown":artist;
+        this.artist = artist == null ? "unknown" : artist;
     }
 
     public String getAlbum() {
@@ -126,7 +128,7 @@ public class MediaModel {
     }
 
     public void setAlbum(@Nullable String album) {
-        this.album=album==null?"unknown":album;
+        this.album = album == null ? "unknown" : album;
     }
 
     public long getLastPlayedPosition() {

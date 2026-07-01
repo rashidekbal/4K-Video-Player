@@ -15,14 +15,16 @@ import java.util.ArrayList;
 
 public class VideoViewModel extends AndroidViewModel {
     private final MediaRepo mediaRepo;
+
     public VideoViewModel(@NonNull Application application) {
         super(application);
-        this.mediaRepo =new MediaRepo(application);
+        this.mediaRepo = new MediaRepo(application);
     }
-    MutableLiveData<ArrayList<MediaModel>> mutableLiveData =new MutableLiveData<>();
 
-    public LiveData<ArrayList<MediaModel>> getVideos(){
-        if(mutableLiveData.getValue()==null||mutableLiveData.getValue().isEmpty()){
+    MutableLiveData<ArrayList<MediaModel>> mutableLiveData = new MutableLiveData<>();
+
+    public LiveData<ArrayList<MediaModel>> getVideos() {
+        if (mutableLiveData.getValue() == null || mutableLiveData.getValue().isEmpty()) {
             fetchVideo();
         }
         return mutableLiveData;
@@ -30,13 +32,7 @@ public class VideoViewModel extends AndroidViewModel {
     }
 
     private void fetchVideo() {
-        ArrayList<MediaModel> temp=new ArrayList<>();
-        if(mutableLiveData.getValue()!=null)temp.addAll(mutableLiveData.getValue());
-        mediaRepo.getVideo(data->{
-            temp.addAll(data);
-            mutableLiveData.postValue(temp);
-
-        });
+        mediaRepo.getVideo(data -> mutableLiveData.postValue(data));
 
     }
 }

@@ -18,7 +18,8 @@ public class RecentPlayedViewModel extends AndroidViewModel {
         super(application);
 
     }
-    public LiveData<List<MediaModel>> getRecents(){
+
+    public LiveData<List<MediaModel>> getRecents() {
 
         return Db.getInstance().playHistoryDao().getHistory();
 

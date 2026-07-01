@@ -31,11 +31,9 @@ public class HomeActivity extends AppCompatActivity {
     MusicSessionViewModel musicSessionViewModel;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        binding=ActivityHomeBinding.inflate(getLayoutInflater());
+        binding = ActivityHomeBinding.inflate(getLayoutInflater());
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(binding.getRoot());
@@ -52,60 +50,68 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-
-
     private void handlePermission() {
-        if(!PermissionUtil.hasPermissions(this,PermissionUtil.MediaPermissions)){
-            PermissionUtil.requestPermissions(this,PermissionUtil.MediaPermissions,PermissionUtil.MEDIA_PERMISSION_CODE);
+        if (!PermissionUtil.hasPermissions(this, PermissionUtil.MediaPermissions)) {
+            PermissionUtil.requestPermissions(this, PermissionUtil.MediaPermissions, PermissionUtil.MEDIA_PERMISSION_CODE);
             return;
         }
         musicSessionViewModel.connect(this);
     }
 
     private void setEventHandler() {
-        binding.recentBtnInActive.setOnClickListener(v->navHandler.onRecentBtnClick());
-        binding.musicBtnInActive.setOnClickListener(v->navHandler.onMusicBtnClick());
-        binding.videoBtnInActive.setOnClickListener(v->navHandler.onVideoBtnClick());
-        binding.currentPlayingCard.setOnClickListener(v->startActivity(new Intent(this,MusicPlayerActivity.class)));
+        binding.recentBtnInActive.setOnClickListener(v -> navHandler.onRecentBtnClick());
+        binding.musicBtnInActive.setOnClickListener(v -> navHandler.onMusicBtnClick());
+        binding.videoBtnInActive.setOnClickListener(v -> navHandler.onVideoBtnClick());
+        binding.currentPlayingCard.setOnClickListener(v -> startActivity(new Intent(this, MusicPlayerActivity.class)));
         binding.playPauseBtn.setOnClickListener(this::handlePlayPauseBtnClick);
     }
 
     private void handlePlayPauseBtnClick(View view) {
-        if(musicSessionViewModel.getController()==null)return;
-        boolean isPlaying=musicSessionViewModel.getController().isPlaying();
-        if(isPlaying){
+        if (musicSessionViewModel.getController() == null) return;
+        boolean isPlaying = musicSessionViewModel.getController().isPlaying();
+        if (isPlaying) {
             musicSessionViewModel.getController().pause();
             return;
         }
         musicSessionViewModel.getController().play();
     }
 
-    private void init(){
-        this.fragmentManager=getSupportFragmentManager();
-        navHandler=new HomePageNavHandler(this,binding);
-        this.musicSessionViewModel=new ViewModelProvider(this).get(MusicSessionViewModel.class);
+    private void init() {
+        this.fragmentManager = getSupportFragmentManager();
+        navHandler = new HomePageNavHandler(this, binding);
+        this.musicSessionViewModel = new ViewModelProvider(this).get(MusicSessionViewModel.class);
     }
+
     private void observeMusicSessionViewModel() {
-        musicSessionViewModel.getCurrentMediaItem().observe(this,this::handleMediaItemChange);
-        musicSessionViewModel.isPlaying().observe(this,this::handlePlayingStateChange);
+        musicSessionViewModel.getCurrentMediaItem().observe(this, this::handleMediaItemChange);
+        musicSessionViewModel.isPlaying().observe(this, this::handlePlayingStateChange);
     }
-    public void changeMainFragment(Fragment fragment, @Nullable String tag){
-        fragmentManager.beginTransaction().replace(binding.contentFragment.getId(),fragment).addToBackStack(tag).commit();
+
+    public void changeMainFragment(Fragment fragment, @Nullable String tag) {
+        fragmentManager.beginTransaction().replace(binding.contentFragment.getId(), fragment).addToBackStack(tag).commit();
 
     }
-    private void handleMediaItemChange(MediaItem mediaItem){
-        if(mediaItem==null){binding.miniPlayer.setVisibility(View.GONE);return;}
+
+    private void handleMediaItemChange(MediaItem mediaItem) {
+        if (mediaItem == null) {
+            binding.miniPlayer.setVisibility(View.GONE);
+            return;
+        }
         binding.miniPlayer.setVisibility(View.VISIBLE);
         binding.currentMusicName.setText(mediaItem.mediaMetadata.title);
     }
-    private  void handlePlayingStateChange(Boolean isPlaying){
-        if(isPlaying==null){binding.miniPlayer.setVisibility(View.GONE);return;}
-        binding.miniPlayer.setVisibility(View.VISIBLE);
-        if(isPlaying){
-            binding.playPauseBtn.setBackgroundDrawable(AppCompatResources.getDrawable(this,R.drawable.pause_icon));
+
+    private void handlePlayingStateChange(Boolean isPlaying) {
+        if (isPlaying == null) {
+            binding.miniPlayer.setVisibility(View.GONE);
             return;
         }
-        binding.playPauseBtn.setBackgroundDrawable(AppCompatResources.getDrawable(this,R.drawable.play_icon));
+        binding.miniPlayer.setVisibility(View.VISIBLE);
+        if (isPlaying) {
+            binding.playPauseBtn.setBackgroundDrawable(AppCompatResources.getDrawable(this, R.drawable.pause_icon));
+            return;
+        }
+        binding.playPauseBtn.setBackgroundDrawable(AppCompatResources.getDrawable(this, R.drawable.play_icon));
 
 
     }

@@ -23,40 +23,39 @@ import com.rtechnologies.videoplayer.utils.ToastUtil;
 
 public class VideoPlayerActivity extends AppCompatActivity {
     ActivityVideoPlayerBinding binding;
-    Handler handler=new Handler(Looper.getMainLooper());
-    Runnable handlePlayDurationTrackingRunnable= this::handlePlayDurationTracking;
-    Runnable hideControlsRunnable=this::hideControls;
-    Player.Listener playerListener =new Player.Listener() {
+    Handler handler = new Handler(Looper.getMainLooper());
+    Runnable handlePlayDurationTrackingRunnable = this::handlePlayDurationTracking;
+    Runnable hideControlsRunnable = this::hideControls;
+    Player.Listener playerListener = new Player.Listener() {
         @Override
         public void onPlaybackStateChanged(int playbackState) {
-            if(playbackState==Player.STATE_READY){
+            if (playbackState == Player.STATE_READY) {
                 handleReadyToPlay();
 
             }
-
 
 
         }
 
         @Override
         public void onIsPlayingChanged(boolean isPlaying) {
-            if(isPlaying){
-                binding.playPauseButton.setBackground(getResources().getDrawable(R.drawable.pause_icon_no_bg,null));
+            if (isPlaying) {
+                binding.playPauseButton.setBackground(getResources().getDrawable(R.drawable.pause_icon_no_bg, null));
                 setPlayProgressListener();
                 return;
             }
-            binding.playPauseButton.setBackground(getResources().getDrawable(R.drawable.play_icon_no_bg,null));
+            binding.playPauseButton.setBackground(getResources().getDrawable(R.drawable.play_icon_no_bg, null));
             removePlayProgressListener();
         }
 
 
     };
-    SeekBar.OnSeekBarChangeListener seekBarChangeListener=new SeekBar.OnSeekBarChangeListener() {
+    SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            if(!fromUser)return;
-            if(ExoplayerUtil.getExoPlayer()==null)return;
-            long progressChange=(long)progress*ExoplayerUtil.getExoPlayer().getDuration()/seekBar.getMax();
+            if (!fromUser) return;
+            if (ExoplayerUtil.getExoPlayer() == null) return;
+            long progressChange = (long) progress * ExoplayerUtil.getExoPlayer().getDuration() / seekBar.getMax();
             ExoplayerUtil.getExoPlayer().seekTo(progressChange);
             binding.currentDuration.setText(TextFormatUtil.getDurationFormatted(progressChange));
         }
@@ -73,10 +72,9 @@ public class VideoPlayerActivity extends AppCompatActivity {
     };
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        this.binding=ActivityVideoPlayerBinding.inflate(getLayoutInflater());
+        this.binding = ActivityVideoPlayerBinding.inflate(getLayoutInflater());
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(binding.getRoot());
@@ -91,14 +89,12 @@ public class VideoPlayerActivity extends AppCompatActivity {
     }
 
 
-
-
     private void init() {
-        if(ExoplayerUtil.getExoPlayer()==null){
+        if (ExoplayerUtil.getExoPlayer() == null) {
             handleExoPlayerError();
             return;
         }
-        if(ExoplayerUtil.getExoPlayer().getMediaItemCount()==0){
+        if (ExoplayerUtil.getExoPlayer().getMediaItemCount() == 0) {
             handleExoPlayerError();
             return;
         }
@@ -107,14 +103,14 @@ public class VideoPlayerActivity extends AppCompatActivity {
     }
 
     private void handleExoPlayerError() {
-        ToastUtil.toastShort(this,"Something went wrong");
+        ToastUtil.toastShort(this, "Something went wrong");
     }
 
 
     @Override
     protected void onPause() {
         super.onPause();
-        if (ExoplayerUtil.getExoPlayer()==null)return;
+        if (ExoplayerUtil.getExoPlayer() == null) return;
         ExoplayerUtil.getExoPlayer().pause();
 
     }
@@ -122,17 +118,18 @@ public class VideoPlayerActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (ExoplayerUtil.getExoPlayer()==null)return;
+        if (ExoplayerUtil.getExoPlayer() == null) return;
         ExoplayerUtil.getExoPlayer().stop();
     }
+
     private void handleReadyToPlay() {
-        MediaItem currentMediaItem=ExoplayerUtil.getExoPlayer().getCurrentMediaItem();
-        if(currentMediaItem==null)return;
+        MediaItem currentMediaItem = ExoplayerUtil.getExoPlayer().getCurrentMediaItem();
+        if (currentMediaItem == null) return;
         binding.playerView.setVisibility(View.VISIBLE);
         binding.bufferView.setVisibility(View.GONE);
         binding.playerView.setPlayer(ExoplayerUtil.getExoPlayer());
         binding.overlay.setVisibility(View.VISIBLE);
-        binding.seekbar.setMax((int)ExoplayerUtil.getExoPlayer().getDuration());
+        binding.seekbar.setMax((int) ExoplayerUtil.getExoPlayer().getDuration());
         binding.currentDuration.setText(TextFormatUtil.getDurationFormatted(ExoplayerUtil.getExoPlayer().getCurrentPosition()));
         binding.maxDuration.setText(TextFormatUtil.getDurationFormatted(ExoplayerUtil.getExoPlayer().getDuration()));
         binding.titleText.setText(currentMediaItem.mediaMetadata.title);
@@ -143,36 +140,39 @@ public class VideoPlayerActivity extends AppCompatActivity {
     private void setPlayProgressListener() {
         handler.post(handlePlayDurationTrackingRunnable);
     }
-    private void removePlayProgressListener(){
+
+    private void removePlayProgressListener() {
         handler.removeCallbacks(handlePlayDurationTrackingRunnable);
     }
 
 
-    private void handleControlsHiding(){
+    private void handleControlsHiding() {
         handler.removeCallbacks(hideControlsRunnable);
-        handler.postDelayed(hideControlsRunnable,10000);
+        handler.postDelayed(hideControlsRunnable, 10000);
     }
 
     private void hideControls() {
-         binding.overlay.setVisibility(View.GONE);
+        binding.overlay.setVisibility(View.GONE);
     }
+
     private void showControls() {
         binding.overlay.setVisibility(View.VISIBLE);
         handleControlsHiding();
     }
+
     private void setEventListeners() {
         binding.playerView.setOnClickListener(this::handlePlayerViewClick);
         binding.overlay.setOnClickListener(this::handleOverLayClick);
         binding.playPauseButton.setOnClickListener(this::handlePlayPauseBtnClick);
-        binding.backBtn.setOnClickListener(v->finish());
+        binding.backBtn.setOnClickListener(v -> finish());
         binding.seekbar.setOnSeekBarChangeListener(seekBarChangeListener);
         binding.nextBtn.setOnClickListener(v -> ExoplayerUtil.getExoPlayer().seekToNextMediaItem());
-        binding.prevBtn.setOnClickListener(v->ExoplayerUtil.getExoPlayer().seekToPreviousMediaItem());
+        binding.prevBtn.setOnClickListener(v -> ExoplayerUtil.getExoPlayer().seekToPreviousMediaItem());
 
     }
 
     private void handlePlayPauseBtnClick(View view) {
-        if(ExoplayerUtil.getExoPlayer().isPlaying()){
+        if (ExoplayerUtil.getExoPlayer().isPlaying()) {
             ExoplayerUtil.getExoPlayer().pause();
             return;
         }
@@ -184,15 +184,16 @@ public class VideoPlayerActivity extends AppCompatActivity {
     }
 
     private void handlePlayerViewClick(View view) {
-        if(ExoplayerUtil.getExoPlayer().getPlaybackState()==Player.STATE_BUFFERING)return;
+        if (ExoplayerUtil.getExoPlayer().getPlaybackState() == Player.STATE_BUFFERING) return;
         showControls();
 
     }
-    private void handlePlayDurationTracking(){
 
-            binding.seekbar.setProgress((int)ExoplayerUtil.getExoPlayer().getCurrentPosition());
-            binding.currentDuration.setText(TextFormatUtil.getDurationFormatted(ExoplayerUtil.getExoPlayer().getCurrentPosition()));
-            handler.postDelayed(handlePlayDurationTrackingRunnable,50);
+    private void handlePlayDurationTracking() {
+
+        binding.seekbar.setProgress((int) ExoplayerUtil.getExoPlayer().getCurrentPosition());
+        binding.currentDuration.setText(TextFormatUtil.getDurationFormatted(ExoplayerUtil.getExoPlayer().getCurrentPosition()));
+        handler.postDelayed(handlePlayDurationTrackingRunnable, 50);
 
     }
 

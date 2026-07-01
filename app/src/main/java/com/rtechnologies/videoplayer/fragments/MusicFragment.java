@@ -34,39 +34,39 @@ public class MusicFragment extends Fragment {
     MusicSessionViewModel musicSessionViewModel;
 
 
-
     public MusicFragment() {
         // Required empty public constructor
     }
 
 
-
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding=FragmentMusicBinding.inflate(inflater,container,false);
+        binding = FragmentMusicBinding.inflate(inflater, container, false);
         init();
         setupRecyclerView();
         handleMediaLoad();
         return binding.getRoot();
     }
+
     private void handleMediaLoad() {
-        if(!PermissionUtil.hasPermissions(requireActivity(),PermissionUtil.MediaPermissions)){
-            return ;
+        if (!PermissionUtil.hasPermissions(requireActivity(), PermissionUtil.MediaPermissions)) {
+            return;
         }
         observeMedia();
     }
+
     private void init() {
-        this.viewModel= new ViewModelProvider(requireActivity()).get(MusicViewModel.class);
-        this.mediaList=new ArrayList<>();
-        adapter=new MediaRecyclerViewAdapter(mediaList, requireActivity(),this::handleMediaItemClicked);
-        this.musicSessionViewModel=new ViewModelProvider(requireActivity()).get(MusicSessionViewModel.class);
+        this.viewModel = new ViewModelProvider(requireActivity()).get(MusicViewModel.class);
+        this.mediaList = new ArrayList<>();
+        adapter = new MediaRecyclerViewAdapter(mediaList, requireActivity(), this::handleMediaItemClicked);
+        this.musicSessionViewModel = new ViewModelProvider(requireActivity()).get(MusicSessionViewModel.class);
     }
+
     @SuppressLint("NotifyDataSetChanged")
     private void observeMedia() {
-        viewModel.getMusic().observe(requireActivity(),media->{
-            if(!media.isEmpty()){
+        viewModel.getMusic().observe(requireActivity(), media -> {
+            if (!media.isEmpty()) {
                 binding.recyclerView.setVisibility(View.VISIBLE);
                 binding.noRecentlyPlayedMedia.setVisibility(View.GONE);
                 mediaList.clear();
@@ -76,19 +76,21 @@ public class MusicFragment extends Fragment {
         });
 
     }
-    private void setupRecyclerView(){
-        LinearLayoutManager lm=new LinearLayoutManager(requireActivity(),LinearLayoutManager.VERTICAL,false);
+
+    private void setupRecyclerView() {
+        LinearLayoutManager lm = new LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false);
         binding.recyclerView.setLayoutManager(lm);
         binding.recyclerView.setAdapter(adapter);
     }
-    private void handleMediaItemClicked(int position){
-        if(musicSessionViewModel.getController()==null){
-            ToastUtil.toastShort(requireActivity(),"Controller is null");
+
+    private void handleMediaItemClicked(int position) {
+        if (musicSessionViewModel.getController() == null) {
+            ToastUtil.toastShort(requireActivity(), "Controller is null");
             return;
         }
-        List<MediaItem> mediaItems= ExoplayerUtil.prepareMediaItem(requireActivity(),mediaList);
-        long startPosition=0;
-        musicSessionViewModel.getController().setMediaItems(mediaItems,position,startPosition);
+        List<MediaItem> mediaItems = ExoplayerUtil.prepareMediaItem(requireActivity(), mediaList);
+        long startPosition = 0;
+        musicSessionViewModel.getController().setMediaItems(mediaItems, position, startPosition);
         musicSessionViewModel.getController().prepare();
         musicSessionViewModel.getController().setPlayWhenReady(true);
         musicSessionViewModel.getController().play();

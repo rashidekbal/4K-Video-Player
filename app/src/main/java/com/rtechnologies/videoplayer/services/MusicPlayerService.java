@@ -9,7 +9,6 @@ import androidx.media3.session.MediaSession;
 import androidx.media3.session.MediaSessionService;
 
 
-
 public class MusicPlayerService extends MediaSessionService {
     private MediaSession mediaSession;
 
@@ -23,10 +22,10 @@ public class MusicPlayerService extends MediaSessionService {
     @Override
     public void onCreate() {
         super.onCreate();
-        ExoPlayer exoPlayer=new ExoPlayer.Builder(this).build();
+        ExoPlayer exoPlayer = new ExoPlayer.Builder(this).build();
         exoPlayer.setSeekForwardIncrementMs(10000);
         exoPlayer.setSeekBackIncrementMs(10000);
-        this.mediaSession=new MediaSession.Builder(this,exoPlayer).build();
+        this.mediaSession = new MediaSession.Builder(this, exoPlayer).build();
     }
 
 
