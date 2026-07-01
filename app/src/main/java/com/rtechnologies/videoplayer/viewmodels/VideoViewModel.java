@@ -7,16 +7,17 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.rtechnologies.videoplayer.model.MediaModel;
-import com.rtechnologies.videoplayer.repo.VideosRepo;
+import com.rtechnologies.videoplayer.room.schema.MediaModel;
+
+import com.rtechnologies.videoplayer.repo.MediaRepo;
 
 import java.util.ArrayList;
 
 public class VideoViewModel extends AndroidViewModel {
-    VideosRepo repo;
+    private final MediaRepo mediaRepo;
     public VideoViewModel(@NonNull Application application) {
         super(application);
-        this.repo=new VideosRepo(application);
+        this.mediaRepo =new MediaRepo(application);
     }
     MutableLiveData<ArrayList<MediaModel>> mutableLiveData =new MutableLiveData<>();
 
@@ -31,7 +32,11 @@ public class VideoViewModel extends AndroidViewModel {
     private void fetchVideo() {
         ArrayList<MediaModel> temp=new ArrayList<>();
         if(mutableLiveData.getValue()!=null)temp.addAll(mutableLiveData.getValue());
-        temp.addAll( repo.getMedia());
-        mutableLiveData.postValue(temp);
+        mediaRepo.getVideo(data->{
+            temp.addAll(data);
+            mutableLiveData.postValue(temp);
+
+        });
+
     }
 }

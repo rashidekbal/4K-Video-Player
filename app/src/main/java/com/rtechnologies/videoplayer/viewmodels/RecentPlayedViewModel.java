@@ -5,33 +5,24 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
-import com.rtechnologies.videoplayer.model.MediaModel;
-import com.rtechnologies.videoplayer.repo.RecentsRepo;
+import com.rtechnologies.videoplayer.room.Db;
+import com.rtechnologies.videoplayer.room.schema.MediaModel;
 
-import java.util.ArrayList;
+
+import java.util.List;
 
 public class RecentPlayedViewModel extends AndroidViewModel {
-    private final RecentsRepo repo;
+
     public RecentPlayedViewModel(@NonNull Application application) {
         super(application);
-        this.repo=new RecentsRepo(application);
-    }
-    MutableLiveData<ArrayList<MediaModel>> mutableLiveData =new MutableLiveData<>();
 
-    public LiveData<ArrayList<MediaModel>> getRecents(){
-        if(mutableLiveData.getValue()==null||mutableLiveData.getValue().isEmpty()){
-            fetchRecents();
-        }
-        return mutableLiveData;
+    }
+    public LiveData<List<MediaModel>> getRecents(){
+
+        return Db.getInstance().playHistoryDao().getHistory();
 
     }
 
-    private void fetchRecents() {
-        ArrayList<MediaModel> temp=new ArrayList<>();
-        if(mutableLiveData.getValue()!=null)temp.addAll(mutableLiveData.getValue());
-        temp.addAll( repo.getMedia());
-        mutableLiveData.postValue(temp);
-    }
+
 }

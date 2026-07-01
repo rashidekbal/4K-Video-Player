@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
+
 import android.widget.SeekBar;
 
 import androidx.activity.EdgeToEdge;
@@ -23,6 +24,8 @@ import com.rtechnologies.videoplayer.utils.ToastUtil;
 public class VideoPlayerActivity extends AppCompatActivity {
     ActivityVideoPlayerBinding binding;
     Handler handler=new Handler(Looper.getMainLooper());
+    Runnable handlePlayDurationTrackingRunnable= this::handlePlayDurationTracking;
+    Runnable hideControlsRunnable=this::hideControls;
     Player.Listener playerListener =new Player.Listener() {
         @Override
         public void onPlaybackStateChanged(int playbackState) {
@@ -38,11 +41,11 @@ public class VideoPlayerActivity extends AppCompatActivity {
         @Override
         public void onIsPlayingChanged(boolean isPlaying) {
             if(isPlaying){
-                binding.playPauseButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.pause_icon_no_bg,null));
+                binding.playPauseButton.setBackground(getResources().getDrawable(R.drawable.pause_icon_no_bg,null));
                 setPlayProgressListener();
                 return;
             }
-            binding.playPauseButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.play_icon_no_bg,null));
+            binding.playPauseButton.setBackground(getResources().getDrawable(R.drawable.play_icon_no_bg,null));
             removePlayProgressListener();
         }
 
@@ -54,10 +57,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
             if(!fromUser)return;
             if(ExoplayerUtil.getExoPlayer()==null)return;
             long progressChange=(long)progress*ExoplayerUtil.getExoPlayer().getDuration()/seekBar.getMax();
-            if(ExoplayerUtil.getExoPlayer().getDuration()-5000>progressChange){
-//                a 5 sec window for not accidentally changing the mediaItem
-                ExoplayerUtil.getExoPlayer().seekTo(progressChange);
-            }
+            ExoplayerUtil.getExoPlayer().seekTo(progressChange);
             binding.currentDuration.setText(TextFormatUtil.getDurationFormatted(progressChange));
         }
 
@@ -114,6 +114,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        if (ExoplayerUtil.getExoPlayer()==null)return;
         ExoplayerUtil.getExoPlayer().pause();
 
     }
@@ -121,6 +122,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (ExoplayerUtil.getExoPlayer()==null)return;
         ExoplayerUtil.getExoPlayer().stop();
     }
     private void handleReadyToPlay() {
@@ -139,20 +141,20 @@ public class VideoPlayerActivity extends AppCompatActivity {
     }
 
     private void setPlayProgressListener() {
-        handler.post(handlePlayDurationTracking());
+        handler.post(handlePlayDurationTrackingRunnable);
     }
     private void removePlayProgressListener(){
-        handler.removeCallbacks(handlePlayDurationTracking());
+        handler.removeCallbacks(handlePlayDurationTrackingRunnable);
     }
 
 
     private void handleControlsHiding(){
-        handler.removeCallbacks(hideControls());
-        handler.postDelayed(hideControls(),10000);
+        handler.removeCallbacks(hideControlsRunnable);
+        handler.postDelayed(hideControlsRunnable,10000);
     }
 
-    private Runnable hideControls() {
-        return () -> binding.overlay.setVisibility(View.GONE);
+    private void hideControls() {
+         binding.overlay.setVisibility(View.GONE);
     }
     private void showControls() {
         binding.overlay.setVisibility(View.VISIBLE);
@@ -186,12 +188,12 @@ public class VideoPlayerActivity extends AppCompatActivity {
         showControls();
 
     }
-    private Runnable handlePlayDurationTracking(){
-        return ()->{
+    private void handlePlayDurationTracking(){
+
             binding.seekbar.setProgress((int)ExoplayerUtil.getExoPlayer().getCurrentPosition());
             binding.currentDuration.setText(TextFormatUtil.getDurationFormatted(ExoplayerUtil.getExoPlayer().getCurrentPosition()));
-            handler.postDelayed(handlePlayDurationTracking(),50);
-        };
+            handler.postDelayed(handlePlayDurationTrackingRunnable,50);
+
     }
 
 }

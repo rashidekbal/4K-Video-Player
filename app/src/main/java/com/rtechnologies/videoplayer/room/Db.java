@@ -6,10 +6,10 @@ import androidx.room.RoomDatabase;
 
 import com.rtechnologies.videoplayer.Application;
 import com.rtechnologies.videoplayer.room.dao.PlayHistory;
-import com.rtechnologies.videoplayer.room.schema.PlayHistorySchema;
+import com.rtechnologies.videoplayer.room.schema.MediaModel;
 
 
-@Database(entities = {PlayHistorySchema.class},version = 1,exportSchema = false)
+@Database(entities = {MediaModel.class},version = 1,exportSchema = false)
 public abstract class Db extends RoomDatabase {
     public static final String DB_NAME = "PlayerDb";
     public static Db instance;

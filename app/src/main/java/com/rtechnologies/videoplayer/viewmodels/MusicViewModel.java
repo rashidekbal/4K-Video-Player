@@ -7,17 +7,19 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.rtechnologies.videoplayer.model.MediaModel;
-import com.rtechnologies.videoplayer.repo.MusicRepo;
+import com.rtechnologies.videoplayer.room.schema.MediaModel;
+import com.rtechnologies.videoplayer.repo.MediaRepo;
 
 import java.util.ArrayList;
 
 
 public class MusicViewModel extends AndroidViewModel {
-    private final MusicRepo repo;
+
+    private final MediaRepo mediaRepo;
     public MusicViewModel(@NonNull Application application) {
         super(application);
-        this.repo=new MusicRepo(application);
+
+        this.mediaRepo =new MediaRepo(application);
     }
     MutableLiveData<ArrayList<MediaModel>> mutableLiveData =new MutableLiveData<>();
 
@@ -32,7 +34,9 @@ public class MusicViewModel extends AndroidViewModel {
     private void fetchMusic() {
         ArrayList<MediaModel> temp=new ArrayList<>();
         if(mutableLiveData.getValue()!=null)temp.addAll(mutableLiveData.getValue());
-        temp.addAll( repo.getMedia());
-        mutableLiveData.postValue(temp);
+        mediaRepo.getMusic(data->{
+            temp.addAll(data);
+            mutableLiveData.postValue(temp);});
+
     }
 }

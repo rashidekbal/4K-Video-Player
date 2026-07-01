@@ -10,5 +10,5 @@
       />
   <path
       android:pathData="M15.414,13.059L10.693,15.846C9.934,16.294 9,15.71 9,14.787V9.213C9,8.289 9.934,7.706 10.693,8.154L15.414,10.941C16.195,11.403 16.195,12.597 15.414,13.059Z"
-      android:fillColor="@color/background"/>
+      android:fillColor="@color/allLight"/>
 </vector>

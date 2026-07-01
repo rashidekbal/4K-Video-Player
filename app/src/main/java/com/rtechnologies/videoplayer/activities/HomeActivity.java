@@ -27,7 +27,7 @@ public class HomeActivity extends AppCompatActivity {
 
     ActivityHomeBinding binding;
     HomePageNavHandler navHandler;
-    public FragmentManager fragmentManager;
+    private FragmentManager fragmentManager;
     MusicSessionViewModel musicSessionViewModel;
 
 

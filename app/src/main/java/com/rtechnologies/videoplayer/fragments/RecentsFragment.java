@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 import com.rtechnologies.videoplayer.adapters.mediaRecyclerView.MediaRecyclerViewAdapter;
 import com.rtechnologies.videoplayer.databinding.FragmentRecentsBinding;
-import com.rtechnologies.videoplayer.model.MediaModel;
+import com.rtechnologies.videoplayer.room.schema.MediaModel;
 import com.rtechnologies.videoplayer.viewmodels.RecentPlayedViewModel;
 
 import java.util.ArrayList;

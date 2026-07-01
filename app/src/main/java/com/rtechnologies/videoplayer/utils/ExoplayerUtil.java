@@ -10,7 +10,7 @@ import androidx.media3.common.MediaMetadata;
 import androidx.media3.exoplayer.ExoPlayer;
 
 import com.rtechnologies.videoplayer.R;
-import com.rtechnologies.videoplayer.model.MediaModel;
+import com.rtechnologies.videoplayer.room.schema.MediaModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +44,8 @@ public class ExoplayerUtil {
                     .setMediaId(String.valueOf(media.getId()))
                     .setMediaMetadata(new MediaMetadata.Builder()
                             .setTitle(media.getFileName())
+                            .setArtist(media.getArtist())
+                            .setAlbumTitle(media.getAlbum())
                             .setArtworkUri(arkWorkUri)
                             .build())
                     .build();

@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 import com.rtechnologies.videoplayer.activities.VideoPlayerActivity;
 import com.rtechnologies.videoplayer.adapters.mediaRecyclerView.MediaRecyclerViewAdapter;
 import com.rtechnologies.videoplayer.databinding.FragmentVideoBinding;
-import com.rtechnologies.videoplayer.model.MediaModel;
+import com.rtechnologies.videoplayer.room.schema.MediaModel;
 import com.rtechnologies.videoplayer.utils.ExoplayerUtil;
 import com.rtechnologies.videoplayer.utils.PermissionUtil;
 import com.rtechnologies.videoplayer.viewmodels.VideoViewModel;

@@ -35,8 +35,8 @@ public class HomePageNavHandler {
         binding.recentBtnInActive.setVisibility(View.GONE);
         if(currentFragmentTag.equals(FragmentsId.RECENTS.toString()))return;
         this.currentFragmentTag=FragmentsId.RECENTS.toString();
-        if(activity.fragmentManager.getBackStackEntryCount()>1) {
-            activity.fragmentManager.popBackStack(FragmentsId.RECENTS.toString(), 0);
+        if(activity.getSupportFragmentManager().getBackStackEntryCount()>1) {
+            activity.getSupportFragmentManager().popBackStack(FragmentsId.RECENTS.toString(), 0);
             return;
         }
         activity.changeMainFragment(new RecentsFragment(), FragmentsId.RECENTS.toString());
@@ -48,7 +48,7 @@ public class HomePageNavHandler {
         if(currentFragmentTag.equals(FragmentsId.MUSIC.toString()))return;
         this.currentFragmentTag=FragmentsId.MUSIC.toString();
         if(backStackContains(FragmentsId.MUSIC.toString())){
-            activity.fragmentManager.popBackStack(FragmentsId.MUSIC.toString(), 0);
+            activity.getSupportFragmentManager().popBackStack(FragmentsId.MUSIC.toString(), 0);
             return;
         }
         activity.changeMainFragment(new MusicFragment(), FragmentsId.MUSIC.toString());
@@ -63,7 +63,7 @@ public class HomePageNavHandler {
         if(currentFragmentTag.equals(FragmentsId.VIDEO.toString()))return;
         this.currentFragmentTag=FragmentsId.VIDEO.toString();
         if(backStackContains(FragmentsId.VIDEO.toString())){
-            activity.fragmentManager.popBackStack(FragmentsId.VIDEO.toString(), 0);
+            activity.getSupportFragmentManager().popBackStack(FragmentsId.VIDEO.toString(), 0);
             return;
         }
         activity.changeMainFragment(new VideoFragment(), FragmentsId.VIDEO.toString());
@@ -78,15 +78,15 @@ public class HomePageNavHandler {
 
     }
     private void handleBackStack(){
-        activity.fragmentManager.addOnBackStackChangedListener(backStackChangedListener);
+        activity.getSupportFragmentManager().addOnBackStackChangedListener(backStackChangedListener);
 
     }
     private void handleBackPressNavigation(){
         activity.getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                if(activity.fragmentManager.getBackStackEntryCount()==1)activity.finish();
-                else activity.fragmentManager.popBackStack();
+                if(activity.getSupportFragmentManager().getBackStackEntryCount()==1)activity.finish();
+                else activity.getSupportFragmentManager().popBackStack();
 
             }
         });
@@ -95,8 +95,8 @@ public class HomePageNavHandler {
     private final FragmentManager.OnBackStackChangedListener backStackChangedListener=new FragmentManager.OnBackStackChangedListener() {
         @Override
         public void onBackStackChanged() {
-            int entryCount=activity.fragmentManager.getBackStackEntryCount();
-            String entryId=activity.fragmentManager.getBackStackEntryAt(entryCount-1).getName();
+            int entryCount=activity.getSupportFragmentManager().getBackStackEntryCount();
+            String entryId=activity.getSupportFragmentManager().getBackStackEntryAt(entryCount-1).getName();
            if(entryId!=null){
                if(entryId.equals(FragmentsId.RECENTS.toString())){
                    currentFragmentTag=FragmentsId.RECENTS.toString();
@@ -117,8 +117,8 @@ public class HomePageNavHandler {
     };
 
     private boolean backStackContains(String fragmentId) {
-        for (int i = 0; i < activity.fragmentManager.getBackStackEntryCount(); i++) {
-            if (Objects.equals(activity.fragmentManager.getBackStackEntryAt(i).getName(), fragmentId)) {
+        for (int i = 0; i < activity.getSupportFragmentManager().getBackStackEntryCount(); i++) {
+            if (Objects.equals(activity.getSupportFragmentManager().getBackStackEntryAt(i).getName(), fragmentId)) {
                 return true;
             }
         }

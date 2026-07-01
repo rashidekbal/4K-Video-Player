@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 
 import com.rtechnologies.videoplayer.adapters.mediaRecyclerView.MediaRecyclerViewAdapter;
 import com.rtechnologies.videoplayer.databinding.FragmentMusicBinding;
-import com.rtechnologies.videoplayer.model.MediaModel;
+import com.rtechnologies.videoplayer.room.schema.MediaModel;
 import com.rtechnologies.videoplayer.utils.ExoplayerUtil;
 import com.rtechnologies.videoplayer.utils.PermissionUtil;
 import com.rtechnologies.videoplayer.utils.ToastUtil;

@@ -2,7 +2,6 @@ package com.rtechnologies.videoplayer.adapters.mediaRecyclerView;
 
 import android.content.Context;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.textview.MaterialTextView;
 import com.rtechnologies.videoplayer.R;
 import com.rtechnologies.videoplayer.interfaces.MediaAdapter.OnItemSelected;
-import com.rtechnologies.videoplayer.model.MediaModel;
+import com.rtechnologies.videoplayer.room.schema.MediaModel;
 import com.rtechnologies.videoplayer.utils.TextFormatUtil;
 
 public class MusicItemViewHolder extends RecyclerView.ViewHolder {

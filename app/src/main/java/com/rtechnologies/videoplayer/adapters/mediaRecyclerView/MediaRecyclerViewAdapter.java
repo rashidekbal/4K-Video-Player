@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.rtechnologies.videoplayer.R;
 import com.rtechnologies.videoplayer.interfaces.MediaAdapter.OnItemSelected;
-import com.rtechnologies.videoplayer.model.MediaModel;
+import com.rtechnologies.videoplayer.room.schema.MediaModel;
 
 import java.util.ArrayList;
 

@@ -54,7 +54,7 @@ public class MusicPlayerActivity extends AppCompatActivity {
         binding.closeBtn.setOnClickListener(this::handleCloseBtnClick);
         binding.playPauseBtn.setOnClickListener(this::handlePlayPause);
         binding.forwardBtn.setOnClickListener(this::handleSeekForward);
-        binding.backwardBtn.setOnClickListener(this::handleSeekBackword);
+        binding.backwardBtn.setOnClickListener(this::handleSeekBackward);
         binding.nextBtn.setOnClickListener(this::handleNextMediaBtnClicked);
         binding.prevBtn.setOnClickListener(this::handlePrevMediaBtnClicked);
         binding.progressBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -104,7 +104,7 @@ public class MusicPlayerActivity extends AppCompatActivity {
         controller.seekToNextMediaItem();
     }
 
-    private void handleSeekBackword(View view) {
+    private void handleSeekBackward(View view) {
         if(viewmodel.getController()==null)return;
         MediaController controller=viewmodel.getController();
         controller.seekBack();
@@ -130,7 +130,7 @@ public class MusicPlayerActivity extends AppCompatActivity {
             return;
         }
         controller.play();
-        handelProgressListener();
+        handleProgressListener();
 
     }
 
@@ -157,14 +157,16 @@ public class MusicPlayerActivity extends AppCompatActivity {
     private void handleMediaItemChange(MediaItem mediaItem) {
         if(mediaItem==null)return;
         binding.progressBar.setProgress(0);
-        binding.currentProgress.setText("0:0");
-        this.handelProgressListener();
+        binding.currentProgress.setText("0:00");
+        binding.fileName.setText(mediaItem.mediaMetadata.title);
+        binding.album.setText(mediaItem.mediaMetadata.artist);
+        this.handleProgressListener();
 
 
 
 
     }
-    private void handelProgressListener(){
+    private void handleProgressListener(){
         progressRunnable=()->{
             if(viewmodel.getController()==null)return;
             MediaController controller=viewmodel.getController();
